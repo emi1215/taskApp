@@ -9,8 +9,9 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     let realm = try! Realm()
     
@@ -23,6 +24,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.fillerRowHeight = UITableView.automaticDimension
         tableView.delegate = self
         tableView.dataSource = self
+        searchBar.delegate = self
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -107,5 +109,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             super.viewWillAppear(animated)
             tableView.reloadData()
         }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        search(text: searchBar.text!)
+    }
+    
+    func search(text: String) {}
 }
 
