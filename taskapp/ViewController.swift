@@ -110,9 +110,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tableView.reloadData()
         }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        search(text: searchBar.text!)
+        var search = realm.category
     }
     
-    func search(text: String) {}
+    let predicate = NSPredicate
+    search = realm.category.filter(predicate)
 }
 
