@@ -57,13 +57,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            
-                    try! realm.write {
-                        self.realm.delete(self.taskArray[indexPath.row])
-                        tableView.deleteRows(at: [indexPath], with: .fade)
-                    }
-        }
         
         if editingStyle == .delete {
             
@@ -110,10 +103,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tableView.reloadData()
         }
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        var search = realm.category
+        
+        if searchText == "" {
+              
+            } else {
+              let predicate = NSPredicate(format: "category contains [c] %@", searchText)
+              taskArray = realm.objects(Task.self).filter(predicate).sorted(byKeyPath: "date", ascending: false)
+            }
+        
+        tableView.reloadData()
     }
-    
-    let predicate = NSPredicate
-    search = realm.category.filter(predicate)
 }
 
